@@ -1,21 +1,26 @@
 const request = require("request");
+const axios = require('axios');
 
-
-function geocode(address, callback) {
+async function geocode(address, callback) {
   const url = `https://geocode.maps.co/search?q={${address}}`;
-  request({  url, json: true }, (err, {body}={}) => {
-    if (err) {
-      callback("Unable to use geocoding services", undefined);
-    } else if (body.length === 0) {
-      callback("No location found", undefined);
-    } else {
+
+  var data;
+  try {
+    data = await axios(url);
+    // console.log(data);
+    if(data.data.length>0){
       callback(undefined, {
-        latitude: body[0].lat,
-        longitude: body[0].lon,
-        location: body[0].display_name,
-      });
+              latitude: data.data[0].lat,
+              longitude: data.data[0].lon,
+              location: data.data[0].display_name,
+            });
     }
-  });
+    else{
+      callback("No location found", undefined);
+    }
+  } catch (error) {
+    callback("Unable to use geocoding services", undefined);
+  }
 }
 
-module.exports=geocode
+module.exports = geocode;
