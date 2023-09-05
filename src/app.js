@@ -3,6 +3,7 @@ const path = require("path");
 const hbs = require("hbs");
 const geocode = require("./utils/geocode.js");
 const forecast = require("./utils/forecast.js");
+const { watch } = require("fs");
 
 const app = express();
 const publicDirectoryPath = path.join(__dirname, "../public");
@@ -26,19 +27,32 @@ app.get("/weather", (req, res) => {
   if (!req.query.address) {
     return res.send({ error: "no address provided" });
   }
-  geocode(req.query.address, (err, { latitude, longitude, location } = {}) => {
-    if (err) {
-      res.send({ error: err });
+  async function main() {
+    let address = await geocode(req.query.address);
+
+    // , (err, { latitude, longitude, location } = {}) => {
+    //   if (err) {
+    //     res.send({ error: err });
+    //   } else {
+    //     forecast(latitude, longitude, (err, data) => {
+    //       if (err) {
+    //         res.send({ Error: err });
+    //       } else {
+    //         res.send({ forecast: data, location: location });
+    //       }
+    //     });
+    //   }
+    // });
+    if (address.hasOwnProperty("error")) {
+      res.send({ error: address.error });
     } else {
-      forecast(latitude, longitude, (err, data) => {
-        if (err) {
-          res.send({ Error: err });
-        } else {
-          res.send({ forecast: data, location: location });
-        }
-      });
+      let weather=await forecast(address.latitude,address.longitude,address.location)
+      console.log(weather)
+      res.send(weather)
+      // res.send(address)
     }
-  });
+  }
+  main();
 });
 
 app.get("/about", (req, res) => {

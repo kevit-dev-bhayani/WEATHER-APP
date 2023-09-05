@@ -1,11 +1,5 @@
 console.log("loded");
 
-// const axios = require('axios/dist/node/axios.cjs')
-// const axios=require('axios')
-// import axios from 'axios'
-
-// axios(`http://localhost:3000/weather?address=${address.value}`)
-
 const weatherForm = document.querySelector("form");
 const address = document.getElementById("input");
 const p1 = document.getElementById("p1");
@@ -27,14 +21,11 @@ weatherForm.addEventListener("click", (e) => {
         else{
           
           p2.textContent = data.location;
-          p1.innerHTML = data.forecast;
+          p1.innerHTML = data.data;
         }
         console.log(data)
       });
-
-      // const data=JSON.parse(res)
     }
   );
 });
 
-// console.log(data)
