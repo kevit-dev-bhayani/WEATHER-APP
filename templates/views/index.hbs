@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIRST FILE LAUNCHING</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    {{>headers}}
+    <p>Use this website for weather information</p>
+    <form action="">
+        <input type="text" name="location" placeholder="location" id="input">
+        <button id="btn">search</button>
+        <div id="output">
+            <p id="p1"></p>
+            <p id="p2"></p>
+        </div>
+    </form>
+    {{>footers}}
+    <script src="./js/index.js"></script>
+</body>
+</html>
