@@ -10,7 +10,7 @@ weatherForm.addEventListener("click", (e) => {
   
   p1.textContent = "loading";
   p2.textContent = "loading";
-  fetch(`http://localhost:3000/weather?address=${address.value}`).then(
+  fetch(`https://weather-app-dev-bhayani.onrender.com//weather?address=${address.value}`).then(
     (res) => {
       console.log(res)
 
