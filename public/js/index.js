@@ -9,7 +9,7 @@ weatherForm.addEventListener("click", (e) => {
   e.preventDefault();
   
   p1.textContent = "loading";
-  p2.textContent = "loading";
+
   fetch(`https://weather-app-dev-bhayani.onrender.com/weather?address=${address.value}`).then(
     (res) => {
       console.log(res)
@@ -26,6 +26,8 @@ weatherForm.addEventListener("click", (e) => {
         console.log(data)
       });
     }
-  );
+  ).catch(()=>{
+    p1.innerText="No internet connection"
+  });
 });
 
