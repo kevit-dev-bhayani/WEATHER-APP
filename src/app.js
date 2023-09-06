@@ -30,34 +30,22 @@ app.get("/weather", (req, res) => {
   async function main() {
     let address = await geocode(req.query.address);
 
-    // , (err, { latitude, longitude, location } = {}) => {
-    //   if (err) {
-    //     res.send({ error: err });
-    //   } else {
-    //     forecast(latitude, longitude, (err, data) => {
-    //       if (err) {
-    //         res.send({ Error: err });
-    //       } else {
-    //         res.send({ forecast: data, location: location });
-    //       }
-    //     });
-    //   }
-    // });
     if (address.hasOwnProperty("error")) {
       res.send({ error: address.error });
     } else {
-      let weather=await forecast(address.latitude,address.longitude,address.location)
-      console.log(weather)
-      res.send(weather)
-      // res.send(address)
+      let weather = await forecast(
+        address.latitude,
+        address.longitude,
+        address.location
+      );
+      res.send(weather);
     }
   }
   main();
 });
 
 app.get("/about", (req, res) => {
-  // res.send('<h1>about</h1>')
-  // app.use(express.static(aboutPagePath))
+
   res.render("about", {
     title: "About Page",
     name: "Dev Bhayani",
@@ -65,7 +53,6 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/help", (req, res) => {
-  // res.send('help page')
   res.render("help", {
     title: "Help page",
     name: "Dev Bhayani",
@@ -74,7 +61,6 @@ app.get("/help", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  // res.send('help page')
   res.render("help", {
     title: "404 Error....",
     message: "An error occurred",
